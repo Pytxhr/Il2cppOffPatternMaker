@@ -42,6 +42,9 @@ bool Il2cppPatternMaker::MakePatterns(LX::LittleXrefs* pOldLxRef, FunctionRefere
 
 	for (auto oldNewRefsPair : mCandidates)
 	{
+		if (foundPatterns >= MAX_PATTERN_FOUNDS)
+			goto DONE;
+
 		size_t refsCount = std::min(oldNewRefsPair.first->second.size(), oldNewRefsPair.second->second.size());
 		PAIR_FUNC_PATTERNS currResult = std::make_pair(oldNewRefsPair.first->first, std::vector<Pattern>());
 
@@ -95,6 +98,7 @@ bool Il2cppPatternMaker::MakePatterns(LX::LittleXrefs* pOldLxRef, FunctionRefere
 					masterDiff.SubPattern(0, j, toPushBack);
 
 					currResult.second.push_back(toPushBack);
+					foundPatterns++;
 					break;
 				}
 			}
@@ -102,6 +106,8 @@ bool Il2cppPatternMaker::MakePatterns(LX::LittleXrefs* pOldLxRef, FunctionRefere
 
 		outResult.push_back(currResult);
 	}
+
+	DONE:
 
 	return outResult.size() != 0;
 }
