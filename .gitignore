@@ -12,3 +12,5 @@
 *.bak
 *.iobj
 *.ipdb
+Il2cppOffPatternMaker/DevEnv/libil2cpp.so
+Il2cppOffPatternMaker/DevEnv/script.json
